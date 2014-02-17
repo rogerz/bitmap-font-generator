@@ -59,11 +59,55 @@ function extractBitmap(chr, font, px) {
     };
 }
 
+/*
+@return [Array]pagedTable [{page: integer, table: []},...];
+*/
 function paginate(fontTable) {
-    return fontTable;
+    var indexed = {};
+    var paged = [];
+
+    fontTable.forEach(function (charDesc) {
+        var page = charDesc.page;
+        if (indexed[page] === undefined) {
+            indexed[page] = [charDesc];
+        } else {
+            indexed[page].push(charDesc);
+        }
+    });
+
+    for (page in indexed) {
+        indexed[page] = indexed[page].sort(function (a, b) {
+            return a.index - b.index;
+        });
+    }
+
+    Object.keys(indexed).sort(function (a, b) {
+        return a - b;
+    }).forEach(function (page) {
+        paged.push({page: parseInt(page), table:indexed[page]});
+    });
+
+    return paged;
 }
 
-function convertTable (outputFn) {
+function createCharDesc (gbkcode, fontDesc, gbk2uni) {
+    var unicode = gbk2uni[gbkcode];
+    var chr = String.fromCharCode(unicode);
+
+    var charDesc = extractBitmap(chr, fontDesc.name, fontDesc.px);
+    charDesc.page = Math.floor(gbkcode / 0x100);
+    charDesc.index = Math.floor(gbkcode % 0xff)
+    charDesc.chr = chr;
+    charDesc.gbkcode = gbkcode;
+    charDesc.unicode = unicode;
+
+    return charDesc;
+}
+
+// @param [Object]codeTable charactor mapping from gbk to unicode
+// @param [function]iterFn iterator function to be called on each charactor
+function convertTable (codeTable, iterFn) {
+    var gbk2uni = codeTable;
     var fontDesc = {
         name: 'song',
         px: 12
@@ -72,21 +116,11 @@ function convertTable (outputFn) {
 
     var limit = 300;
     for (var gbkcode in gbk2uni) {
-        var unicode = gbk2uni[gbkcode];
-        var chr = String.fromCharCode(unicode);
-
-        var charDesc = extractBitmap(chr, fontDesc.name, fontDesc.px);
-        charDesc.page = Math.floor(gbkcode / 0x100);
-        charDesc.index = Math.floor(gbkcode % 0xff)
-        charDesc.chr = chr;
-        charDesc.gbkcode = gbkcode;
-        charDesc.unicode = unicode;
-
+        var charDesc = createCharDesc(gbkcode, fontDesc, gbk2uni);
         fontTable.push(charDesc);
-        if (typeof outputFn === 'function') {
-            outputFn(charDesc);
+        if (typeof iterFn === 'function') {
+            iterFn(charDesc);
         }
-        
         if (limit-- <=0) break;
     }
 

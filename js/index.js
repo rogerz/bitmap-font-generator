@@ -18,5 +18,5 @@ function createAsyncPreview() {
     }
 }
 
-var fontData = convertTable(createAsyncPreview());
+var fontData = convertTable(gbk2uni, createAsyncPreview());
 preview(JSON.stringify(fontData), 'json');
