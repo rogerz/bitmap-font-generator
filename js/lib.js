@@ -116,7 +116,7 @@ function convertTable (codeTable, iterFn) {
 
     var limit = 300;
     for (var gbkcode in gbk2uni) {
-        var charDesc = createCharDesc(gbkcode, fontDesc, gbk2uni);
+        var charDesc = createCharDesc(parseInt(gbkcode), fontDesc, gbk2uni);
         fontTable.push(charDesc);
         if (typeof iterFn === 'function') {
             iterFn(charDesc);
