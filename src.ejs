@@ -1,0 +1,18 @@
+#include <ugl/driver/font/udbmffnt.h>
+
+<% table.forEach(function(page, index) { %>
+UGL_LOCAL const unsigned char page<%= index %>Data[] =
+{
+  0, 0, 0, 0
+};
+<% }) %>
+
+UGL_LOCAL const unsigned char * const pageArray[] =
+{
+  UGL_NULL
+};
+
+const UGL_BMF_FONT_DESC uglBMFFont_Song16 =
+{
+  
+};

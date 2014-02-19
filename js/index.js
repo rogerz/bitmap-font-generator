@@ -1,9 +1,9 @@
-function preview(str, elemId) {
-    var id = elemId || 'output';
+function display(str, elemId) {
+    var id = elemId || 'debug';
     document.getElementById(id).value = str;
 }
 
-function createAsyncPreview() {
+function createAsyncDisplay() {
     var buf = [];
     var waiting = false;
     return function (charDesc) {
@@ -11,12 +11,29 @@ function createAsyncPreview() {
         if (!waiting) {
             waiting = true;
             setTimeout(function () {
-                preview(buf.join('\n'));
+                display(buf.join('\n'));
                 waiting = false;
             }, 10)
         }
     }
 }
 
-var fontData = convertTable(gbk2uni, createAsyncPreview());
-preview(JSON.stringify(fontData), 'json');
+function generateCode(data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'src.ejs', true);
+    xhr.onreadystatechange = function (event) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+		var template = xhr.responseText;
+		display(ejs.render(template, data), 'code');
+            } else {
+                console.log("Error", xhr.statusText);
+            }
+        }
+    };
+    xhr.send();
+}
+
+var fontData = convertTable(gbk2uni, createAsyncDisplay());
+display(JSON.stringify(fontData), 'json');
+generateCode(fontData);
