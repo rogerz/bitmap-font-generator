@@ -25,6 +25,9 @@ function generateCode(data) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
 		var template = xhr.responseText;
+		ejs.filters.hex = function (obj) {
+		    return '0x' + obj.toString(16);
+		}
 		display(ejs.render(template, data), 'code');
             } else {
                 console.log("Error", xhr.statusText);

@@ -84,7 +84,7 @@ function paginate(fontTable) {
     Object.keys(indexed).sort(function (a, b) {
         return a - b;
     }).forEach(function (page) {
-        paged.push({page: parseInt(page), table:indexed[page]});
+        paged.push({page: parseInt(page), chars:indexed[page]});
     });
 
     return paged;
@@ -95,8 +95,8 @@ function createCharDesc (gbkcode, fontDesc, gbk2uni) {
     var chr = String.fromCharCode(unicode);
 
     var charDesc = extractBitmap(chr, fontDesc.name, fontDesc.px);
-    charDesc.page = Math.floor(gbkcode / 0x100);
-    charDesc.index = Math.floor(gbkcode % 0xff)
+    charDesc.page = Math.floor(unicode / 0x100);
+    charDesc.index = Math.floor(unicode & 0xff)
     charDesc.chr = chr;
     charDesc.gbkcode = gbkcode;
     charDesc.unicode = unicode;
@@ -126,6 +126,6 @@ function convertTable (codeTable, iterFn) {
 
     return {
         desc: fontDesc,
-        table: paginate(fontTable)
+        pages: paginate(fontTable)
     };
 }

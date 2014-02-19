@@ -1,8 +1,18 @@
 #include <ugl/driver/font/udbmffnt.h>
 
-<% table.forEach(function(page, index) { %>
+<% pages.forEach(function(page, index) { %>
 UGL_LOCAL const unsigned char page<%= index %>Data[] =
 {
+<% page.chars.forEach(function (chr) { %>
+    /* <%=: chr.unicode | hex %> ('<%= chr.chr %>') */
+    <%= chr.page %>,	/* page */
+    <%= chr.index %>,	/* index */
+    <%= chr.sizeMSB %>, /* size (MSB) */
+    <%= chr.sizeLSB %>, /* size (LSB) */
+    <%= chr.width %>,	/* width */
+    <%= chr.height %>, /* height */
+    <%= chr.ascent %>, /* ascent */
+<% }) %>
   0, 0, 0, 0
 };
 <% }) %>
