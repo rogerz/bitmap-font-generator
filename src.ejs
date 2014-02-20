@@ -13,13 +13,15 @@ UGL_LOCAL const unsigned char page<%= index %>Data[] =
     <%= chr.height %>, /* height */
     <%= chr.ascent %>, /* ascent */
 <% }) %>
-  0, 0, 0, 0
+    0, 0, 0, 0
 };
 <% }) %>
 
 UGL_LOCAL const unsigned char * const pageArray[] =
 {
-  UGL_NULL
+<% pages.forEach(function(page, index) { %>    page<%= index %>Data,
+<% }) %>
+    UGL_NULL
 };
 
 const UGL_BMF_FONT_DESC uglBMFFont_Song16 =
