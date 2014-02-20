@@ -18,9 +18,9 @@ function createAsyncDisplay() {
     }
 }
 
-function generateCode(data) {
+function generateCode(template, data) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'src.ejs', true);
+    xhr.open('GET', template, true);
     xhr.onreadystatechange = function (event) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -39,4 +39,4 @@ function generateCode(data) {
 
 var fontData = convertTable(gbk2uni, createAsyncDisplay());
 display(JSON.stringify(fontData), 'json');
-generateCode(fontData);
+generateCode('src.ejs', fontData);

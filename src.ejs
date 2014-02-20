@@ -24,7 +24,23 @@ UGL_LOCAL const unsigned char * const pageArray[] =
     UGL_NULL
 };
 
-const UGL_BMF_FONT_DESC uglBMFFont_Song16 =
+const UGL_BMF_FONT_DESC uglBMFFont_<%= desc.name %>_<%= desc.px %> =
 {
+    /* UGL_FONT_DESC structure */
+    {
+    {<%= desc.pxMin %>, <%= desc.pxMax %>},	/* pixelSize */
+    {UGL_FONT_BOLD, UGL_FONT_BOLD},	/* weight */
+    UGL_FONT_UPRIGHT,			/* italic */
+    UGL_FONT_MONO_SPACED,		/* spacing */
+    UGL_FONT_UNICODE,			/* char set */
+    "<%= desc.faceName %>",		/* face name */
+    "<%= desc.familyName %>"		/* family name */
+    },
   
+    /* UGL_BMF_FONT_DESC structure */
+    <%= desc.leading %>,      /* leading */
+    <%= desc.maxAscent %>,    /* maxAscent */
+    <%= desc.maxDecent %>,    /* maxDescent */
+    <%= desc.maxAdvance %>,   /* maxAdvance */
+    pageArray	       /* glyph pages */
 };

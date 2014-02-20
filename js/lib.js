@@ -109,7 +109,7 @@ function createCharDesc (gbkcode, fontDesc, gbk2uni) {
 function convertTable (codeTable, iterFn) {
     var gbk2uni = codeTable;
     var fontDesc = {
-        name: 'song',
+        name: 'SongWeb',
         px: 12
     };
     var fontTable = [];
@@ -123,6 +123,13 @@ function convertTable (codeTable, iterFn) {
         }
         if (limit-- <=0) break;
     }
+
+    fontDesc.pxMin = fontDesc.pxMax = fontDesc.px;
+    fontDesc.faceName = fontDesc.familyName = fontDesc.name;
+    fontDesc.leading = 1;
+    fontDesc.maxAscent = fontDesc.px;
+    fontDesc.maxDecent = 0;
+    fontDesc.maxAdvance = fontDesc.px;
 
     return {
         desc: fontDesc,
