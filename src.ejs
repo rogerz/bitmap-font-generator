@@ -12,6 +12,7 @@ UGL_LOCAL const unsigned char page<%= index %>Data[] =
     <%= chr.width %>,	/* width */
     <%= chr.height %>, /* height */
     <%= chr.ascent %>, /* ascent */
+    <% for (var i = 0; i < chr.bitmap.length; i ++) { %><%= chr.bitmap[i] || 0 %>, <% } %>
 <% }) %>
     0, 0, 0, 0
 };

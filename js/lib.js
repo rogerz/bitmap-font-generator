@@ -46,8 +46,9 @@ function extractBitmap(chr, font, px) {
         }
     }
 
-    var msb = Math.floor(bitmap.length / 0x100) & 0xFF;
-    var lsb = bitmap.length & 0xFF;
+    var size = bitmap.length + 4;	/* size, width, height, ascent */
+    var msb = size >> 0x8;
+    var lsb = size & 0xFF;
 
     return {
         sizeMSB: msb,
