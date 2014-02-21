@@ -17,7 +17,6 @@ function preview(charDesc) {
     target.appendChild(tgtCanvas);
 
     var ctx = tgtCanvas.getContext('2d');
-
     // render the char
 }
 
@@ -28,7 +27,7 @@ function extractBitmap(chr, font, px) {
 
     // DEBUG
     var source = document.getElementById('source');
-    source.appendChild(srcCanvas);
+    source.appendChild(canvas);
 
     var ctx = canvas.getContext('2d');
     ctx.font = px + 'px ' + font;
