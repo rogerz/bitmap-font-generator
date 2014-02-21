@@ -13,21 +13,20 @@ function convertString(str) {
 
 function extractBitmap(chr, font, px) {
     // TODO: correct bitmap extraction
+    var source = document.getElementById('source');
+    var target = document.getElementById('target');
     var canvas = document.createElement('canvas');
+    source.appendChild(canvas);
+
+    canvas.width = canvas.height = px;
+
     var ctx = canvas.getContext('2d');
-    var bitmap = [];
-
-    // clear canvas
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0 ,0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
-
     ctx.font = px + 'px ' + font;
-    ctx.textBaseline = 'top';
-    ctx.fillText(chr, 0, 0);
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(chr, 0, px);
 
     var data = ctx.getImageData(0, 0, px, px).data;
+    var bitmap = [];
     // data = [r, g, b, a, r, g, b, a, ...]
     for (var i = 0, len = data.length; i < len; i = i + 4) {
         // pixel index
@@ -46,7 +45,7 @@ function extractBitmap(chr, font, px) {
         }
     }
 
-    var size = bitmap.length + 4;	/* size, width, height, ascent */
+    var size = bitmap.length + 4;       /* size, width, height, ascent */
     var msb = size >> 0x8;
     var lsb = size & 0xFF;
 
@@ -110,7 +109,7 @@ function createCharDesc (gbkcode, fontDesc, gbk2uni) {
 function convertTable (codeTable, iterFn) {
     var gbk2uni = codeTable;
     var fontDesc = {
-        name: 'SongWeb',
+        name: 'SimSun',
         px: 12
     };
     var fontTable = [];
