@@ -11,14 +11,24 @@ function convertString(str) {
     return 'string converted';
 }
 
+function preview(charDesc) {
+    var tgtCanvas = document.createElement('canvas');
+    var target = document.getElementById('target');
+    target.appendChild(tgtCanvas);
+
+    var ctx = tgtCanvas.getContext('2d');
+
+    // render the char
+}
+
 function extractBitmap(chr, font, px) {
     // TODO: correct bitmap extraction
-    var source = document.getElementById('source');
-    var target = document.getElementById('target');
     var canvas = document.createElement('canvas');
-    source.appendChild(canvas);
-
     canvas.width = canvas.height = px;
+
+    // DEBUG
+    var source = document.getElementById('source');
+    source.appendChild(srcCanvas);
 
     var ctx = canvas.getContext('2d');
     ctx.font = px + 'px ' + font;
