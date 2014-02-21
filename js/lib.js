@@ -37,7 +37,7 @@ function extractBitmap(chr, font, px) {
     var data = ctx.getImageData(0, 0, px, px).data;
     var bitmap = [];
     // data = [r, g, b, a, r, g, b, a, ...]
-    for (var i = 0, len = data.length; i < len; i = i + 4) {
+    for (var i = 3, len = data.length; i < len; i = i + 4) {
         // pixel index
         var p = Math.floor(i / 4);
         // byte index
@@ -45,12 +45,12 @@ function extractBitmap(chr, font, px) {
         // remainder
         var r = p - b * 8;
 
-        var dot = data[i + 3] > 0 ? 1 : 0; // check non zero
+        var dot = data[i] > 0 ? 1 : 0; // check non zero
         if (dot) {
             if (bitmap[b] === undefined) {
                 bitmap[b] = 0;
             }
-            bitmap[b] = bitmap[b] + (dot << r);
+            bitmap[b] = bitmap[b] + (dot << (8 - r));
         }
     }
 
