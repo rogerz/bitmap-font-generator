@@ -45,11 +45,12 @@ function extractBitmap(chr, font, px) {
         // remainder
         var r = p - b * 8;
 
+        if (bitmap[b] === undefined) {
+            bitmap[b] = 0;
+        }
+
         var dot = data[i] > 0 ? 1 : 0; // check non zero
         if (dot) {
-            if (bitmap[b] === undefined) {
-                bitmap[b] = 0;
-            }
             bitmap[b] = bitmap[b] + (dot << (7 - r));
         }
     }
