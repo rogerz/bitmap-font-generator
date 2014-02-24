@@ -26,8 +26,8 @@ function extractBitmap(chr, font, px) {
     canvas.width = canvas.height = px;
 
     // DEBUG
-    var source = document.getElementById('source');
-    source.appendChild(canvas);
+    // var source = document.getElementById('source');
+    // source.appendChild(canvas);
 
     var ctx = canvas.getContext('2d');
     ctx.font = px + 'px ' + font;
@@ -50,7 +50,7 @@ function extractBitmap(chr, font, px) {
             if (bitmap[b] === undefined) {
                 bitmap[b] = 0;
             }
-            bitmap[b] = bitmap[b] + (dot << (8 - r));
+            bitmap[b] = bitmap[b] + (dot << (7 - r));
         }
     }
 
@@ -123,14 +123,14 @@ function convertTable (codeTable, iterFn) {
     };
     var fontTable = [];
 
-    var limit = 300;
+//    var limit = 300;
     for (var gbkcode in gbk2uni) {
         var charDesc = createCharDesc(parseInt(gbkcode), fontDesc, gbk2uni);
         fontTable.push(charDesc);
         if (typeof iterFn === 'function') {
             iterFn(charDesc);
         }
-        if (limit-- <=0) break;
+//        if (limit-- <=0) break;
     }
 
     fontDesc.pxMin = fontDesc.pxMax = fontDesc.px;

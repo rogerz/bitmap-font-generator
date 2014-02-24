@@ -1,10 +1,18 @@
 <html>
+<head>
+  <style type="text/css">
+    .debug {
+      display: none;
+    }
+  </style>
+</head>
 <body>
   <div id="source"></div>
   <div id="target"></div>
-  <textarea id="debug" style="height:150;"></textarea>
-  <textarea id="json" style="height:150;"></textarea>
+  <textarea id="debug" class="debug" style="height:150;"></textarea>
+  <textarea id="json" class="debug" style="height:150;"></textarea>
   <textarea id="code" style="height:150;"></textarea>
+  <button id="generate">Generate</button>
 </body>
 <script src="lib/ejs.js"></script>
 <script src="js/gbk.js"></script>

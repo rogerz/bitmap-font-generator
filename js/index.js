@@ -11,7 +11,7 @@ function createAsyncDisplay() {
         if (!waiting) {
             waiting = true;
             setTimeout(function () {
-                display(buf.join('\n'));
+//                display(buf.join('\n'));
                 waiting = false;
             }, 10)
         }
@@ -37,6 +37,10 @@ function generateCode(template, data) {
     xhr.send();
 }
 
-var fontData = convertTable(gbk2uni, createAsyncDisplay());
-display(JSON.stringify(fontData), 'json');
-generateCode('src.ejs', fontData);
+function main() {
+    var fontData = convertTable(gbk2uni, createAsyncDisplay());
+    // display(JSON.stringify(fontData), 'json');
+    generateCode('src.ejs', fontData);
+}
+
+document.getElementById('generate').addEventListener('click', main);
